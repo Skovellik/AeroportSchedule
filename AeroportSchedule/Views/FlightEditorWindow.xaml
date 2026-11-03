@@ -1,0 +1,86 @@
+﻿<Window x:Class="AeroportSchedule.Views.FlightEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AeroportSchedule.Views"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="450" Width="550"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Номер рейса:" VerticalAlignment="Center" Margin="0,6"/>
+        <TextBox   Grid.Row="0" Grid.Column="1" Text="{Binding Flight.FlightNumber, UpdateSourceTrigger=PropertyChanged}" Margin="0,6"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Авиакомпания:" VerticalAlignment="Center" Margin="0,6"/>
+        <ComboBox  Grid.Row="1" Grid.Column="1" Margin="0,6"
+                   ItemsSource="{Binding Airlines}"
+                   DisplayMemberPath="Name"
+                   SelectedValuePath="AirlineID"
+                   SelectedValue="{Binding Flight.AirlineID}"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Воздушное судно:" VerticalAlignment="Center" Margin="0,6"/>
+        <ComboBox  Grid.Row="2" Grid.Column="1" Margin="0,6"
+                   ItemsSource="{Binding Aircrafts}"
+                   DisplayMemberPath="RegistrationNo"
+                   SelectedValuePath="AircraftID"
+                   SelectedValue="{Binding Flight.AircraftID}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Аэропорт вылета:" VerticalAlignment="Center" Margin="0,6"/>
+        <ComboBox  Grid.Row="3" Grid.Column="1" Margin="0,6"
+                   ItemsSource="{Binding Airports}"
+                   DisplayMemberPath="IATACode"
+                   SelectedValuePath="AirportID"
+                   SelectedValue="{Binding Flight.DepartureAirportID}"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Аэропорт прилёта:" VerticalAlignment="Center" Margin="0,6"/>
+        <ComboBox  Grid.Row="4" Grid.Column="1" Margin="0,6"
+                   ItemsSource="{Binding Airports}"
+                   DisplayMemberPath="IATACode"
+                   SelectedValuePath="AirportID"
+                   SelectedValue="{Binding Flight.ArrivalAirportID}"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Дата/время вылета:" VerticalAlignment="Center" Margin="0,6"/>
+        <DatePicker Grid.Row="5" Grid.Column="1" Margin="0,6"
+                    SelectedDate="{Binding Flight.DepartureTime}"/>
+
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Дата/время прилёта:" VerticalAlignment="Center" Margin="0,6"/>
+        <DatePicker Grid.Row="6" Grid.Column="1" Margin="0,6"
+                    SelectedDate="{Binding Flight.ArrivalTime}"/>
+
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="Статус:" VerticalAlignment="Center" Margin="0,6"/>
+        <ComboBox  Grid.Row="7" Grid.Column="1" Margin="0,6" SelectedValue="{Binding Flight.Status}">
+            <ComboBoxItem Content="По расписанию"/>
+            <ComboBoxItem Content="Задержан"/>
+            <ComboBoxItem Content="Отменён"/>
+            <ComboBoxItem Content="Выполнен"/>
+            <ComboBoxItem Content="Посадка"/>
+        </ComboBox>
+
+        <TextBlock Grid.Row="8" Grid.Column="0" Text="Гейт:" VerticalAlignment="Center" Margin="0,6"/>
+        <TextBox   Grid.Row="8" Grid.Column="1" Text="{Binding Flight.GateNumber}" Margin="0,6"/>
+
+        <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
+                    Orientation="Horizontal" HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom" Margin="0,20,0,0">
+            <Button Content="Сохранить" Command="{Binding SaveCommand}"   Width="100" Margin="0,0,10,0" Padding="0,4"/>
+            <Button Content="Отмена"    Command="{Binding CancelCommand}" Width="100" Padding="0,4"/>
+        </StackPanel>
+    </Grid>
+</Window>
